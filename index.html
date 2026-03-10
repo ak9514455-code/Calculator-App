@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anime JEE Advanced Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="calculator-wrapper">
+      <!-- App title / description -->
+      <header class="app-header">
+        <h1 class="app-title">Anime JEE Advanced Calculator</h1>
+        <p class="app-subtitle">
+          Precise basic + scientific calculations with JJK-inspired vibe.
+        </p>
+      </header>
+
+      <!-- Top controls: dark mode + copy + AC -->
+      <div class="top-controls">
+        <button class="chip" id="dark-toggle">Toggle light / dark</button>
+        <button class="chip" id="copy-result">Copy result</button>
+        <button class="chip" id="ac-chip">AC (all clear)</button>
+      </div>
+
+      <div class="calculator">
+        <div class="display">
+          <div class="history" id="history"></div>
+          <div class="current" id="current">0</div>
+        </div>
+        <div class="keys">
+          <!-- Row 1: JEE-style trig + angle mode -->
+          <button class="btn function" data-action="sin">sin</button>
+          <button class="btn function" data-action="cos">cos</button>
+          <button class="btn function" data-action="tan">tan</button>
+          <button class="btn function" data-action="angle-mode">DEG</button>
+
+          <!-- Row 2: logs and constants -->
+          <button class="btn function" data-action="ln">ln</button>
+          <button class="btn function" data-action="log10">log</button>
+          <button class="btn function" data-action="pi">π</button>
+          <button class="btn function" data-action="e">e</button>
+
+          <!-- Row 3: powers / roots / C (backspace) -->
+          <button class="btn function" data-action="square">x²</button>
+          <button class="btn function" data-action="sqrt">√</button>
+          <button class="btn function" data-action="inverse">1/x</button>
+          <button class="btn function" data-action="backspace">C</button>
+
+          <!-- Row 4: sign / percent / factorial / divide -->
+          <button class="btn function" data-action="sign">+/-</button>
+          <button class="btn function" data-action="percent">%</button>
+          <button class="btn function" data-action="factorial">n!</button>
+          <button class="btn operator" data-operator="÷">÷</button>
+
+          <!-- Row 5: 7 8 9 × -->
+          <button class="btn number" data-number="7">7</button>
+          <button class="btn number" data-number="8">8</button>
+          <button class="btn number" data-number="9">9</button>
+          <button class="btn operator" data-operator="×">×</button>
+
+          <!-- Row 6: 4 5 6 − -->
+          <button class="btn number" data-number="4">4</button>
+          <button class="btn number" data-number="5">5</button>
+          <button class="btn number" data-number="6">6</button>
+          <button class="btn operator" data-operator="−">−</button>
+
+          <!-- Row 7: 1 2 3 ^ -->
+          <button class="btn number" data-number="1">1</button>
+          <button class="btn number" data-number="2">2</button>
+          <button class="btn number" data-number="3">3</button>
+          <button class="btn operator" data-operator="^">xʸ</button>
+
+          <!-- Row 8: 0 . + = -->
+          <button class="btn number" data-number="0">0</button>
+          <button class="btn number" data-number=".">.</button>
+          <button class="btn operator" data-operator="+">+</button>
+          <button class="btn equals" data-action="equals">=</button>
+        </div>
+      </div>
+
+      <!-- Scrollable calculation history -->
+      <section class="history-panel">
+        <div class="history-header">
+          <h2>History</h2>
+          <button class="chip small" id="clear-history">Clear</button>
+        </div>
+        <div class="history-list" id="history-list"></div>
+      </section>
+
+      <!-- Simple unit converter -->
+      <section class="converter">
+        <h2>Unit Converter</h2>
+        <p class="converter-note">Quick conversions for length, weight, and temperature.</p>
+        <div class="converter-row">
+          <label>
+            Type
+            <select id="convert-type">
+              <option value="length" selected>Length (km ↔ m)</option>
+              <option value="weight">Weight (kg ↔ g)</option>
+              <option value="temp">Temperature (°C ↔ °F)</option>
+            </select>
+          </label>
+        </div>
+        <div class="converter-row converter-inputs">
+          <input type="number" id="convert-from" placeholder="From" />
+          <button class="chip small" id="swap-units">⇄</button>
+          <input type="text" id="convert-to" placeholder="To" readonly />
+        </div>
+        <div class="converter-row">
+          <button class="chip primary" id="convert-btn">Convert</button>
+        </div>
+
+        <!-- Personal keypad for converter -->
+        <div class="converter-keypad">
+          <button type="button" class="converter-key" data-key="7">7</button>
+          <button type="button" class="converter-key" data-key="8">8</button>
+          <button type="button" class="converter-key" data-key="9">9</button>
+          <button type="button" class="converter-key action" data-key="back">⌫</button>
+
+          <button type="button" class="converter-key" data-key="4">4</button>
+          <button type="button" class="converter-key" data-key="5">5</button>
+          <button type="button" class="converter-key" data-key="6">6</button>
+          <button type="button" class="converter-key action" data-key="clear">C</button>
+
+          <button type="button" class="converter-key" data-key="1">1</button>
+          <button type="button" class="converter-key" data-key="2">2</button>
+          <button type="button" class="converter-key" data-key="3">3</button>
+          <button type="button" class="converter-key action" data-key=".">.</button>
+
+          <button type="button" class="converter-key wide" data-key="0">0</button>
+          <button type="button" class="converter-key action wide" data-key="apply">Use in main calc</button>
+        </div>
+      </section>
+
+      <p class="keyboard-hint">
+        Tip: You can also type with your keyboard (0–9, +, −, *, /, Enter, Backspace).
+      </p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+  </html>
+
